@@ -67,17 +67,17 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
 
       {/* 1. Hero Banner */}
-      <section className="relative w-full h-[calc(100vh-80px)] md:h-[calc(100vh-112px)] bg-white flex flex-col justify-center overflow-hidden">
+      <section className="relative w-full h-[calc(100dvh-64px)] md:h-[calc(100dvh-120px)] bg-white flex flex-col justify-start md:justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 pointer-events-none"></div>
         <HeroFace3D />
-        <div className="relative z-[5] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div className="relative z-[5] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-0 pointer-events-none">
           <div className="max-w-2xl">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-3xl italic">
                 M
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-4xl text-primary font-bold tracking-tight">Mohta Skin Clinic</span>
+                <span className="font-serif text-3xl md:text-4xl text-primary font-bold tracking-tight">Mohta Skin Clinic</span>
                 <span className="text-xs uppercase tracking-[0.1em] text-foreground/80 font-bold ml-1">Overall Skincare Solutions</span>
               </div>
             </div>
@@ -85,9 +85,34 @@ export default function Home() {
               We Provide <br />
               Overall Skincare Solutions
             </h1>
-            <p className="text-lg text-foreground/70 mb-8 max-w-xl">
+            <p className="text-lg text-foreground/70 mb-6 max-w-xl">
               Overcome disease, embrace health and see our skin specialists will leave you looking radiant and rejuvenated.
             </p>
+
+            {/* Mobile-only clinic image */}
+            <div className="md:hidden rounded-2xl overflow-hidden mb-6 shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=800&auto=format&fit=crop" 
+                alt="Mohta Skin Clinic" 
+                className="w-full h-56 object-cover"
+              />
+            </div>
+
+            {/* Mobile-only quick stats */}
+            <div className="md:hidden grid grid-cols-3 gap-3 mb-6">
+              <div className="bg-primary/10 rounded-xl p-3 text-center">
+                <p className="text-2xl font-bold text-primary">15+</p>
+                <p className="text-xs text-foreground/70">Years Exp.</p>
+              </div>
+              <div className="bg-primary/10 rounded-xl p-3 text-center">
+                <p className="text-2xl font-bold text-primary">10k+</p>
+                <p className="text-xs text-foreground/70">Patients</p>
+              </div>
+              <div className="bg-primary/10 rounded-xl p-3 text-center">
+                <p className="text-2xl font-bold text-primary">20+</p>
+                <p className="text-xs text-foreground/70">Treatments</p>
+              </div>
+            </div>
           </div>
         </div>
 
