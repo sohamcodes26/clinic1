@@ -8,28 +8,91 @@ import { Menu, X, ChevronDown } from "lucide-react";
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [currentHash, setCurrentHash] = useState("");
     const pathname = usePathname();
 
     useEffect(() => {
+        // Handle scroll for sticky navbar
         const handleScroll = () => {
-            // Offset by the top bar height (~40px)
             setIsScrolled(window.scrollY > 40);
         };
+
+        // Handle hash tracking for active link styling
+        setCurrentHash(window.location.hash);
+        const handleHashChange = () => {
+            setCurrentHash(window.location.hash);
+        };
+
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("hashchange", handleHashChange);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("hashchange", handleHashChange);
+        };
     }, []);
+
+    const checkIsActive = (linkHref) => {
+        if (linkHref === "/") {
+            return pathname === "/" && !currentHash;
+        }
+        if (linkHref.includes("#")) {
+            const [path, hash] = linkHref.split("#");
+            const matchPath = path === "" ? "/" : path;
+            return pathname === matchPath && currentHash === `#${hash}`;
+        }
+        return pathname === linkHref;
+    };
 
     const navLinks = [
         { name: "Home", href: "/" },
-        { name: "About", href: "/#about", hasDropdown: true },
-        { name: "Skin", href: "/treatments", hasDropdown: true },
-        { name: "Hair", href: "/treatments", hasDropdown: true },
-        { name: "Laser", href: "/treatments", hasDropdown: true },
-        { name: "Aesthetics", href: "/treatments", hasDropdown: true },
-        { name: "Sculpting", href: "/treatments", hasDropdown: true },
-        { name: "Surgery", href: "/treatments", hasDropdown: true },
+        { name: "About", href: "/#doctors" },
+        {
+            name: "Skin", href: "/treatments#skin", hasDropdown: true,
+            dropdownItems: [
+                { name: "Acne Treatment", href: "/treatments/acne-treatment" },
+                { name: "Open Pores", href: "/treatments/open-pores" },
+                { name: "Vitiligo", href: "/treatments/vitiligo" },
+                { name: "Pigmentation", href: "/treatments/pigmentation" },
+                { name: "Psoriasis & Eczema", href: "/treatments/psoriasis-eczema" },
+                { name: "Fungal Infections", href: "/treatments/fungal-infections" },
+                { name: "Warts Removal", href: "/treatments/warts-removal" },
+            ]
+        },
+        {
+            name: "Hair", href: "/treatments#hair", hasDropdown: true,
+            dropdownItems: [
+                { name: "Hair Fall Treatment", href: "/treatments/hair-fall-treatment" },
+                { name: "PRP Therapy", href: "/treatments/prp-therapy" },
+                { name: "Dandruff Treatment", href: "/treatments/dandruff-treatment" },
+                { name: "Alopecia", href: "/treatments/alopecia" },
+                { name: "Hair Transplant", href: "/treatments/hair-transplant" },
+            ]
+        },
+        {
+            name: "Laser", href: "/treatments#laser", hasDropdown: true,
+            dropdownItems: [
+                { name: "Laser Hair Removal", href: "/treatments/laser-hair-removal" },
+                { name: "Laser Skin Resurfacing", href: "/treatments/laser-skin-resurfacing" },
+                { name: "Tattoo Removal", href: "/treatments/tattoo-removal" },
+                { name: "Scar Treatment", href: "/treatments/scar-treatment" },
+                { name: "Laser Toning", href: "/treatments/laser-toning" },
+            ]
+        },
+        {
+            name: "Sculpting", href: "/treatments#sculpting", hasDropdown: true,
+            dropdownItems: [
+                { name: "CoolSculpting", href: "/treatments/coolsculpting" },
+                { name: "Body Contouring", href: "/treatments/body-contouring" },
+                { name: "Fat Reduction", href: "/treatments/fat-reduction" },
+                { name: "Skin Tightening", href: "/treatments/skin-tightening" },
+            ]
+        },
+        { name: "Success Stories", href: "/success-stories" },
         { name: "Contact Us", href: "/#contact" },
     ];
+
+    const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
 
     return (
         <nav className={`w-full z-40 transition-all duration-300 border-b border-secondary/50 ${isScrolled ? "fixed top-0 bg-white shadow-md py-3" : "bg-white py-4 relative"}`}>
@@ -38,7 +101,6 @@ export default function Navbar() {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-3">
-                        {/* Logo Icon Placeholder */}
                         <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xl italic">
                             M
                         </div>
@@ -56,19 +118,23 @@ export default function Navbar() {
                             <div key={link.name} className="relative group">
                                 <Link
                                     href={link.href}
-                                    className={`flex items-center text-[13px] xl:text-[14px] font-semibold transition-colors duration-200 uppercase tracking-wide py-2 ${pathname === link.href || (pathname === '/' && link.href === '/') || (pathname.startsWith(link.href) && link.href !== '/')
-                                            ? "text-primary border-b-2 border-primary"
-                                            : "text-foreground hover:text-primary"
+                                    className={`flex items-center text-[13px] xl:text-[14px] font-semibold transition-colors duration-200 uppercase tracking-wide py-2 ${checkIsActive(link.href) ? "text-primary border-b-2 border-primary" : "text-foreground hover:text-primary"
                                         }`}
+                                    onClick={() => setCurrentHash(link.href.includes('#') ? `#${link.href.split('#')[1]}` : '')}
                                 >
                                     {link.name}
                                     {link.hasDropdown && <ChevronDown size={14} className="ml-1 text-primary" />}
                                 </Link>
-                                {/* Simplified Dummy Dropdown using CSS hover */}
-                                {link.hasDropdown && (
-                                    <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-secondary/20 z-50">
-                                        <Link href={link.href} className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary">Consultation</Link>
-                                        <Link href={link.href} className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary">Treatment details</Link>
+                                {link.hasDropdown && link.dropdownItems && (
+                                    <div className="absolute top-full left-0 w-56 bg-white shadow-xl rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-secondary/20 z-50">
+                                        <Link href={link.href} className="block px-4 py-2.5 text-sm font-semibold text-primary border-b border-secondary/20 hover:bg-primary/10">
+                                            All {link.name} Treatments
+                                        </Link>
+                                        {link.dropdownItems.map((item) => (
+                                            <Link key={item.name} href={item.href} className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors">
+                                                {item.name}
+                                            </Link>
+                                        ))}
                                     </div>
                                 )}
                             </div>
@@ -98,20 +164,44 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-xl py-4 flex flex-col px-6 border-t border-secondary/20 h-auto max-h-[80vh] overflow-y-auto">
+                <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-xl py-4 flex flex-col px-6 border-t border-secondary/20 h-auto max-h-[80vh] overflow-y-auto z-50">
                     {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className={`text-xs font-semibold py-3 border-b border-secondary/30 uppercase flex justify-between items-center ${pathname === link.href || (pathname === '/' && link.href === '/') || (pathname.startsWith(link.href) && link.href !== '/')
-                                    ? "text-primary"
-                                    : "text-foreground"
-                                }`}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            {link.name}
-                            {link.hasDropdown && <ChevronDown size={16} className="text-primary" />}
-                        </Link>
+                        <div key={link.name}>
+                            <div className="flex justify-between items-center border-b border-secondary/30">
+                                <Link
+                                    href={link.href}
+                                    className={`text-xs font-semibold py-3 uppercase flex-1 ${checkIsActive(link.href) ? "text-primary" : "text-foreground"}`}
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        setCurrentHash(link.href.includes('#') ? `#${link.href.split('#')[1]}` : '');
+                                    }}
+                                >
+                                    {link.name}
+                                </Link>
+                                {link.hasDropdown && (
+                                    <button
+                                        onClick={() => setOpenMobileDropdown(openMobileDropdown === link.name ? null : link.name)}
+                                        className="p-2"
+                                    >
+                                        <ChevronDown size={16} className={`text-primary transition-transform duration-200 ${openMobileDropdown === link.name ? "rotate-180" : ""}`} />
+                                    </button>
+                                )}
+                            </div>
+                            {link.hasDropdown && link.dropdownItems && openMobileDropdown === link.name && (
+                                <div className="pl-4 py-1 bg-secondary/10 rounded-b">
+                                    {link.dropdownItems.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            className="block py-2 text-xs text-foreground/80 hover:text-primary"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     ))}
                     <a
                         href="/#contact"

@@ -6,39 +6,56 @@ export const metadata = {
     description: "Explore our range of advanced dermatology and cosmetological treatments.",
 };
 
-const treatments = [
+const categories = [
     {
-        category: "Skin & Pigmentation",
+        id: "skin",
+        title: "Skin Treatments",
+        description: "Comprehensive dermatological solutions for all skin conditions, from acne to pigmentation, tailored by expert dermatologists.",
         items: [
-            { name: "Dark Spots & Skin Pigmentation", desc: "Advanced laser and clinical treatments to even out skin tone." },
-            { name: "Chemical Peeling", desc: "Rejuvenates skin texture and addresses acne scars or sun damage." },
-            { name: "Skin Rejuvenation", desc: "Non-invasive therapies for a youthful, glowing appearance." }
+            { name: "Acne Treatment", slug: "acne-treatment", desc: "Medical and procedural treatments for all grades of acne including cystic acne, hormonal acne, and acne scars." },
+            { name: "Open Pores", slug: "open-pores", desc: "Advanced pore-minimizing treatments using chemical peels, laser therapy, and medical-grade skincare solutions." },
+            { name: "Vitiligo", slug: "vitiligo", desc: "Specialized care and advanced therapies including phototherapy and surgical grafting for repigmentation." },
+            { name: "Pigmentation", slug: "pigmentation", desc: "Targeted treatments for dark spots, melasma, tan removal, and uneven skin tone using lasers and peels." },
+            { name: "Psoriasis & Eczema", slug: "psoriasis-eczema", desc: "Expert management for chronic inflammatory skin conditions with biologics and phototherapy." },
+            { name: "Fungal Infections", slug: "fungal-infections", desc: "Accurate diagnosis and complete eradication of ringworm, candida, and other fungal skin infections." },
+            { name: "Warts Removal", slug: "warts-removal", desc: "Safe removal procedures using cryotherapy, electrocautery, and laser for various types of warts." },
         ]
     },
     {
-        category: "Hair & Scalp",
+        id: "hair",
+        title: "Hair Treatments",
+        description: "Advanced hair fall treatments, PRP therapies, and customized solutions to restore natural hair growth effectively.",
         items: [
-            { name: "PRP Therapy", desc: "Platelet-Rich Plasma treatment for effective hair regrowth." },
-            { name: "Hair Fall Treatment", desc: "Comprehensive diagnosis and targeted medical management." }
+            { name: "Hair Fall Treatment", slug: "hair-fall-treatment", desc: "Comprehensive diagnosis and targeted medical management for male and female pattern hair loss." },
+            { name: "PRP Therapy", slug: "prp-therapy", desc: "Platelet-Rich Plasma treatment that uses your own blood to stimulate hair follicles for effective regrowth." },
+            { name: "Dandruff Treatment", slug: "dandruff-treatment", desc: "Medical-grade treatment for chronic dandruff, seborrheic dermatitis, and itchy scalp conditions." },
+            { name: "Alopecia", slug: "alopecia", desc: "Specialized treatment for alopecia areata, alopecia totalis, and other autoimmune hair loss conditions." },
+            { name: "Hair Transplant", slug: "hair-transplant", desc: "FUE and FUT hair transplant consultations with advanced surgical techniques for natural-looking results." },
         ]
     },
     {
-        category: "Dermatological Conditions",
+        id: "laser",
+        title: "Laser Treatments",
+        description: "Safe and effective laser therapies using modern technology for permanent results in skin and hair concerns.",
         items: [
-            { name: "Acne Treatment", desc: "Medical and procedural treatments for all grades of acne." },
-            { name: "Vitiligo (White Patches)", desc: "Specialized care and advanced therapies for repigmentation." },
-            { name: "Psoriasis & Eczema", desc: "Expert management for chronic inflammatory skin conditions." },
-            { name: "Allergy & Fungal Diseases", desc: "Accurate diagnosis and complete eradication of infections." },
-            { name: "Warts & Nail Diseases", desc: "Safe removal procedures and directed medical care." }
+            { name: "Laser Hair Removal", slug: "laser-hair-removal", desc: "Permanent hair reduction using FDA-approved diode and Nd:YAG laser technology for all skin types." },
+            { name: "Laser Skin Resurfacing", slug: "laser-skin-resurfacing", desc: "Fractional CO2 and Erbium laser treatments for wrinkles, fine lines, and skin texture improvement." },
+            { name: "Tattoo Removal", slug: "tattoo-removal", desc: "Q-switched Nd:YAG laser treatment for safe and effective removal of all tattoo colors." },
+            { name: "Scar Treatment", slug: "scar-treatment", desc: "Advanced laser and micro-needling treatments for acne scars, surgical scars, and stretch marks." },
+            { name: "Laser Toning", slug: "laser-toning", desc: "Low-fluence laser treatment for brightening, pigmentation reduction, and overall skin rejuvenation." },
         ]
     },
     {
-        category: "Advanced Cosmetology",
+        id: "sculpting",
+        title: "Body Sculpting",
+        description: "Non-surgical body contouring and sculpting therapies to safely reduce stubborn fat and improve your physical shape.",
         items: [
-            { name: "Dermaroller Treatment", desc: "Microneedling for collagen induction and scar reduction." },
-            { name: "Cosmetic Skin Procedures", desc: "Personalized aesthetic procedures by fellowship-trained experts." }
+            { name: "CoolSculpting", slug: "coolsculpting", desc: "FDA-cleared fat freezing technology to eliminate stubborn fat pockets without surgery or downtime." },
+            { name: "Body Contouring", slug: "body-contouring", desc: "Non-invasive body shaping treatments using radiofrequency and ultrasound technology." },
+            { name: "Fat Reduction", slug: "fat-reduction", desc: "Targeted fat reduction treatments for abdomen, thighs, arms, and double chin using advanced technology." },
+            { name: "Skin Tightening", slug: "skin-tightening", desc: "Radiofrequency and HIFU treatments for firming sagging skin on face, neck, and body." },
         ]
-    }
+    },
 ];
 
 export default function TreatmentsPage() {
@@ -59,30 +76,37 @@ export default function TreatmentsPage() {
                     </p>
                 </div>
 
-                <div className="space-y-20">
-                    {treatments.map((group, groupIdx) => (
-                        <div key={groupIdx} className="relative">
-                            <h2 className="text-xl md:text-3xl font-serif font-bold text-primary-dark mb-6 md:mb-8 border-b border-secondary/30 pb-3 md:pb-4">
-                                {group.category}
-                            </h2>
+                <div className="space-y-24">
+                    {categories.map((category) => (
+                        <section key={category.id} id={category.id} className="scroll-mt-32">
+                            <div className="mb-10">
+                                <h2 className="text-2xl md:text-4xl font-serif font-bold text-primary-dark mb-3 border-b border-secondary/30 pb-4">
+                                    {category.title}
+                                </h2>
+                                <p className="text-foreground/70 text-base max-w-3xl">{category.description}</p>
+                            </div>
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {group.items.map((treatment, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-secondary/20 hover:shadow-xl hover:border-primary/40 transition-all duration-300 group hover:-translate-y-1"
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {category.items.map((treatment) => (
+                                    <Link
+                                        key={treatment.slug}
+                                        href={`/treatments/${treatment.slug}`}
+                                        className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-secondary/20 hover:shadow-xl hover:border-primary/40 transition-all duration-300 group hover:-translate-y-1 block"
                                     >
                                         <CheckCircle2 className="w-8 h-8 text-primary/60 mb-4 md:mb-6 group-hover:text-primary transition-colors" />
                                         <h3 className="text-lg md:text-xl font-serif font-semibold text-foreground mb-2 md:mb-3 group-hover:text-primary-dark transition-colors">
                                             {treatment.name}
                                         </h3>
-                                        <p className="text-foreground/70 leading-relaxed text-sm">
+                                        <p className="text-foreground/70 leading-relaxed text-sm mb-4">
                                             {treatment.desc}
                                         </p>
-                                    </div>
+                                        <span className="inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+                                            Learn More <ArrowRight className="ml-1 w-4 h-4" />
+                                        </span>
+                                    </Link>
                                 ))}
                             </div>
-                        </div>
+                        </section>
                     ))}
                 </div>
 

@@ -154,13 +154,14 @@ export default function Home() {
       </section>
 
       {/* 4. Doctor's Profile - Recreated layout */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="doctors" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-4">
           <span className="text-xs uppercase tracking-[0.2em] text-primary font-bold border-b border-primary pb-1">
             Doctor&apos;s Profile
           </span>
         </div>
 
+        {/* Dr. Pratik R. Mohta */}
         <div className="flex flex-col md:flex-row mt-12 bg-secondary/10 border border-secondary/30 rounded-xl overflow-hidden relative">
           <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-auto">
             <img
@@ -170,12 +171,39 @@ export default function Home() {
             />
           </div>
 
-          {/* Embedded white detail box slightly overlapping */}
           <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-white relative md:-ml-8 md:my-8 rounded-xl shadow-lg border border-secondary/20">
             <h3 className="text-3xl font-serif font-bold text-foreground mb-1">Dr. Pratik R. Mohta</h3>
             <p className="text-primary font-semibold text-lg mb-4">MBBS, MD Skin</p>
             <p className="text-foreground/70 leading-relaxed text-sm mb-8">
               Dr. Pratik is an AIIMS Delhi Gold Medalist and an award-winning Consultant Dermatologist, Cosmetologist, and Hair Specialist offering unmatched care in Khamgaon & Akola.
+            </p>
+            <div className="flex flex-col space-y-4 border-t border-secondary/50 pt-8">
+              <div className="flex space-x-3">
+                {["A", "B", "C", "D"].map((medal, i) => (
+                  <div key={i} className="w-10 h-10 border border-primary/30 flex justify-center items-center text-primary bg-secondary/20 rounded hover:bg-primary hover:text-white transition-colors cursor-pointer">
+                    <Award className="w-5 h-5" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dr. Isha Mohta */}
+        <div className="flex flex-col md:flex-row-reverse mt-12 bg-secondary/10 border border-secondary/30 rounded-xl overflow-hidden relative">
+          <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-auto">
+            <img
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop"
+              alt="Dr. Isha Mohta"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-white relative md:-mr-8 md:my-8 rounded-xl shadow-lg border border-secondary/20">
+            <h3 className="text-3xl font-serif font-bold text-foreground mb-1">Dr. Isha Mohta</h3>
+            <p className="text-primary font-semibold text-lg mb-4">MBBS, MD Skin</p>
+            <p className="text-foreground/70 leading-relaxed text-sm mb-8">
+              Dr. Isha is a skilled Dermatologist and Cosmetologist specializing in advanced skincare treatments, aesthetic procedures, and holistic skin wellness at Mohta Skin Clinic.
             </p>
             <div className="flex flex-col space-y-4 border-t border-secondary/50 pt-8">
               <div className="flex space-x-3">
