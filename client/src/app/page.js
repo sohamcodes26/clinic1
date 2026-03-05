@@ -15,6 +15,12 @@ import {
 import ReviewSlider from "@/components/ReviewSlider";
 import ServiceCard from "@/components/ServiceCard";
 import FeatureCard from "@/components/FeatureCard";
+import dynamic from "next/dynamic";
+
+const HeroFace3D = dynamic(() => import("@/components/HeroFace3D"), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function Home() {
 
@@ -60,15 +66,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
 
-      {/* 1. Hero Banner Carousel Replacement */}
-      <section className="relative w-full h-[calc(100vh-80px)] md:h-[calc(100vh-112px)] bg-secondary/20 flex flex-col justify-end">
-        <img
-          src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop"
-          alt="Clinic Aesthetic Banner"
-          className="absolute inset-0 w-full h-full object-cover object-top opacity-50"
-        />
-        <div className="absolute inset-x-0 bottom-0 top-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 md:pb-40">
+      {/* 1. Hero Banner */}
+      <section className="relative w-full h-[calc(100vh-80px)] md:h-[calc(100vh-112px)] bg-white flex flex-col justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 pointer-events-none"></div>
+        <HeroFace3D />
+        <div className="relative z-[5] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none">
           <div className="max-w-2xl">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-3xl italic">
@@ -90,13 +92,13 @@ export default function Home() {
         </div>
 
         {/* CTA Bar */}
-        <div className="absolute bottom-0 w-full bg-primary text-white py-4 shadow-md z-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-6">
+        <div className="absolute bottom-0 w-full bg-primary text-white py-3 md:py-4 shadow-md z-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-row items-center justify-between">
+            <div className="flex items-center space-x-4 md:space-x-6">
               <img src="https://images.unsplash.com/photo-1594824436998-d1fc73fa25a7?q=80&w=150&auto=format&fit=crop" alt="Doctor" className="rounded-full w-12 h-12 border-2 border-white object-cover hidden md:block" />
-              <h2 className="text-xl md:text-2xl font-serif font-bold">Book a consultation with us</h2>
+              <h2 className="text-base md:text-2xl font-serif font-bold">Book a consultation with us</h2>
             </div>
-            <Link href="/#contact" className="mt-4 md:mt-0 bg-white text-primary px-8 py-2.5 rounded hover:bg-white/90 font-bold transition-colors">
+            <Link href="/#contact" className="bg-white text-primary px-5 md:px-8 py-2 md:py-2.5 rounded hover:bg-white/90 font-bold transition-colors text-sm md:text-base whitespace-nowrap">
               Book Now
             </Link>
           </div>

@@ -79,8 +79,8 @@ export default function TreatmentsPage() {
                 <div className="space-y-24">
                     {categories.map((category) => (
                         <section key={category.id} id={category.id} className="scroll-mt-32">
-                            <div className="mb-10">
-                                <h2 className="text-2xl md:text-4xl font-serif font-bold text-primary-dark mb-3 border-b border-secondary/30 pb-4">
+                            <div className="mb-10 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-2xl p-6 md:p-8 border-l-4 border-primary">
+                                <h2 className="text-2xl md:text-4xl font-serif font-bold text-primary mb-3">
                                     {category.title}
                                 </h2>
                                 <p className="text-foreground/70 text-base max-w-3xl">{category.description}</p>
