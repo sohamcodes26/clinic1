@@ -1,12 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdfbf7; /* Very soft warm white/beige */
-  --foreground: #2d3748; /* Soft dark gray */
-  --primary: #c2a384; /* Elegant gold/bronze/beige */
-  --primary-dark: #a88a6b;
-  --secondary: #e2d9cd;
-  --accent: #5e7261; /* Soft sage green */
+  --background: #ffffff;
+  /* Very soft warm white/beige */
+  --foreground: #1c2229;
+  /* Soft dark gray */
+  --primary: #32d6cd;
+  /* Bright teal/cyan */
+  --primary-dark: #2ab2aa;
+  --secondary: #f0f7f6;
+  /* Very light teal background */
+  --accent: #0f172a;
+  /* Dark navy for text contrasts */
 }
 
 @theme inline {
@@ -27,6 +32,11 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif), serif;
 }
